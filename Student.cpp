@@ -13,7 +13,7 @@ Student::Student()
   tuitionStatus = "";
 }
 
-Student::Student(int id, int yearOfStudy, string department, string fname, string lname, string address, string tuitionStatus)
+Student::Student(int x, int yearOfStudy, string department, string fname, string lname, string address, string tuitionStatus)
 {
   this->id = id;
   this->yearOfStudy = yearOfStudy;
