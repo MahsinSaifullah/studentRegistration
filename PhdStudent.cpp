@@ -1,6 +1,7 @@
 #include "Student.h"
 #include "PhdStudent.h"
 #include<iostream>
+#include<iomanip>
 #include<string>
 #include<vector>
 using namespace std;
@@ -8,17 +9,15 @@ using namespace std;
 
 PhdStudent::PhdStudent()
 {
-  modeOfStudy="";
+
   fullStudyLength=4;
   yearlyFee=0;
-  feePaid=0;
   balance=0;
 }
 
-PhdStudent::PhdStudent(string modeOfStudy, int feePaid, int id, int yearOfStudy, string department, string fname, string lname, string address, string tuitionStatus):Student(id, yearOfStudy, department, fname, lname, address, tuitionStatus)
+PhdStudent::PhdStudent(string modeOfStudy, int feePaid, int id, int yearOfStudy, string department, string fname, string lname, string address, string tuitionStatus):Student(id, yearOfStudy, feePaid, modeOfStudy, department, fname, lname, address, tuitionStatus)
 {
   this->modeOfStudy = modeOfStudy;
-  this->feePaid = feePaid;
   fullStudyLength = 3;
 
   if (tuitionStatus == "Home" || tuitionStatus == "EU") yearlyFee = 12000;
@@ -31,10 +30,6 @@ PhdStudent::PhdStudent(string modeOfStudy, int feePaid, int id, int yearOfStudy,
 
 }
 
-string PhdStudent::getModeOfStudy()
-{
-  return modeOfStudy;
-}
 
 int PhdStudent::getFullStudyLength()
 {
@@ -46,10 +41,6 @@ int PhdStudent::getYearlyFee()
   return yearlyFee;
 }
 
-int PhdStudent::getFeePaid()
-{
-  return feePaid;
-}
 
 int PhdStudent::getBalance()
 {

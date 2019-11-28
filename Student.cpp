@@ -6,17 +6,21 @@
 Student::Student()
 {
   id = 0;
+  modeOfStudy="";
   department = "";
   fname = "";
   lname = "";
   address = "";
   tuitionStatus = "";
+  feePaid=0;
 }
 
-Student::Student(int x, int yearOfStudy, string department, string fname, string lname, string address, string tuitionStatus)
+Student::Student(int id, int yearOfStudy, int feePaid, string modeOfStudy, string department, string fname, string lname, string address, string tuitionStatus)
 {
   this->id = id;
+  this->modeOfStudy = modeOfStudy;
   this->yearOfStudy = yearOfStudy;
+  this->feePaid = feePaid;
   this->department = department;
   this->fname = fname;
   this->lname = lname;
@@ -27,6 +31,11 @@ Student::Student(int x, int yearOfStudy, string department, string fname, string
 int Student::getID()
 {
   return id;
+}
+
+string Student::getModeOfStudy()
+{
+  return modeOfStudy;
 }
 
 int Student::getYearOfStudy()
@@ -57,6 +66,11 @@ string Student::getAddress()
 string Student::getTuitionStat()
 {
   return tuitionStatus;
+}
+
+int Student::getFeePaid()
+{
+  return feePaid;
 }
 
 void Student::enrol(string moduleCode, string moduleName)

@@ -8,17 +8,13 @@ using namespace std;
 
 UGStudent::UGStudent()
 {
-  modeOfStudy="";
   fullStudyLength=3;
   yearlyFee=0;
-  feePaid=0;
   balance=0;
 }
 
-UGStudent::UGStudent(string modeOfStudy, int feePaid, int id, int yearOfStudy, string department, string fname, string lname, string address, string tuitionStatus):Student(id, yearOfStudy, department, fname, lname, address, tuitionStatus)
+UGStudent::UGStudent(string modeOfStudy, int feePaid, int id, int yearOfStudy, string department, string fname, string lname, string address, string tuitionStatus):Student(id, yearOfStudy, feePaid, modeOfStudy, department, fname, lname, address, tuitionStatus)
 {
-  this->modeOfStudy = modeOfStudy;
-  this->feePaid = feePaid;
   fullStudyLength = 3;
 
   if (tuitionStatus == "Home" || tuitionStatus == "EU") yearlyFee = 9000;
@@ -30,10 +26,6 @@ UGStudent::UGStudent(string modeOfStudy, int feePaid, int id, int yearOfStudy, s
 
 }
 
-string UGStudent::getModeOfStudy()
-{
-  return modeOfStudy;
-}
 
 int UGStudent::getFullStudyLength()
 {
@@ -45,10 +37,6 @@ int UGStudent::getYearlyFee()
   return yearlyFee;
 }
 
-int UGStudent::getFeePaid()
-{
-  return feePaid;
-}
 
 int UGStudent::getBalance()
 {
