@@ -21,6 +21,7 @@ public:
   string getTuitionStat();
   int getFeePaid();
   void enrol(string, string);
+  virtual void displayInfo();
 
 
 

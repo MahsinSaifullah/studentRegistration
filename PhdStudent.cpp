@@ -20,7 +20,7 @@ PhdStudent::PhdStudent(string modeOfStudy, int feePaid, int id, int yearOfStudy,
   this->modeOfStudy = modeOfStudy;
   fullStudyLength = 3;
 
-  if (tuitionStatus == "Home" || tuitionStatus == "EU") yearlyFee = 12000;
+  if (tuitionStatus == "HOME" || tuitionStatus == "EU") yearlyFee = 12000;
   else yearlyFee = 24000;
 
   if(yearOfStudy == 1) balance = yearlyFee - feePaid;

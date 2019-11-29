@@ -19,7 +19,7 @@ MScStudent::MScStudent(string modeOfStudy, int feePaid, int id, int yearOfStudy,
   this->modeOfStudy = modeOfStudy;
   fullStudyLength = 1;
 
-  if (tuitionStatus == "Home" || tuitionStatus == "EU") yearlyFee = 10000;
+  if (tuitionStatus == "HOME" || tuitionStatus == "EU") yearlyFee = 10000;
   else yearlyFee = 20000;
 
   balance = yearlyFee - feePaid;

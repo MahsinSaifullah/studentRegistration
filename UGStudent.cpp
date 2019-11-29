@@ -17,7 +17,7 @@ UGStudent::UGStudent(string modeOfStudy, int feePaid, int id, int yearOfStudy, s
 {
   fullStudyLength = 3;
 
-  if (tuitionStatus == "Home" || tuitionStatus == "EU") yearlyFee = 9000;
+  if (tuitionStatus == "HOME" || tuitionStatus == "EU") yearlyFee = 9000;
   else yearlyFee = 18000;
 
   if(yearOfStudy == 1) balance = yearlyFee - feePaid;

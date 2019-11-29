@@ -1,6 +1,8 @@
 #include "Student.h"
 #include<string>
 #include<vector>
+#include<iostream>
+using namespace std;
 
 
 Student::Student()
@@ -77,4 +79,22 @@ void Student::enrol(string moduleCode, string moduleName)
 {
   enrolledModuleCode.push_back(moduleCode);
   enrolledModuleName.push_back(moduleName);
+}
+
+void Student::displayInfo()
+{
+  cout<<"ID: "<<id<<endl<<"First Name: "<<fname<<endl<<"Last Name: "<<lname<<endl;
+  cout<<"Mode of Study: "<<modeOfStudy<<endl<<"Department: "<<department<<endl;
+  cout<<"Status: "<< tuitionStatus<<endl<<"Current Year: "<<yearOfStudy<<endl;
+  cout<<"Total Fee Paid: "<<feePaid<<endl;
+  cout<<endl;
+  cout<<"Enrolled Modules: "<<endl;
+  cout<<endl;
+  cout<<"Module Code\t\t\t\tModule Name"<<endl;
+  cout<<endl;
+
+  for(int i=0; i<enrolledModuleCode.size(); i++)
+  {
+    cout<<enrolledModuleCode[i]<<"\t\t\t\t"<<enrolledModuleName[i]<<endl;
+  }
 }
