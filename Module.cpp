@@ -5,6 +5,13 @@
 #include<vector>
 using namespace std;
 
+Module::Module()
+{
+  moduleCode = "";
+  moduleName = "";
+  moduleProfessor = ""; 
+  moduleSummary = "";
+}
 Module::Module(string moduleCode, string moduleName, string moduleProfessor, string moduleSummary)
 {
   this->moduleCode = moduleCode;

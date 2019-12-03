@@ -10,6 +10,7 @@ using namespace std;
 class Module
 {
 public:
+  Module();
   Module(string, string, string, string);
   string getModuleCode();
   string getModuleName();

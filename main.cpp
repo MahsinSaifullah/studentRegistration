@@ -4,12 +4,20 @@
 #include "PhdStudent.h"
 #include "Module.h"
 #include<iostream>
+#include<fstream>
+#include<sstream>
 #include<string>
 #include<vector>
+
 using namespace std;
 
 
-void addUGStudent(vector<UGStudent> &ug)
+void clearConsole()
+{
+  cout << "\x1B[2J\x1B[H";
+}
+
+void addStudent(vector<UGStudent> &ug, vector<MScStudent> &msc, vector<PhdStudent> &phd)
 {
   string modeOfStudy,department,fname,lname,address,status;
   int id, fee, yearOfStudy;
@@ -23,7 +31,7 @@ void addUGStudent(vector<UGStudent> &ug)
   cout<<"Enter fee paid: "<<flush;
   cin>>fee;
   cout<<endl;
-  cout<<"Enter year Of Study: "<<flush;
+  cout<<"Enter Current Year Of Study: "<<flush;
   cin>>yearOfStudy;
   cout<<endl;
   cout<<"Enter department: "<<flush;
@@ -36,99 +44,43 @@ void addUGStudent(vector<UGStudent> &ug)
   cin>>lname;
   cout<<endl;
   cout<<"Enter address: "<<flush;
-  cin>>address;
+  cin.ignore();
+  getline(cin, address);
   cout<<endl;
   cout<<"Enter status: "<<flush;
   cin>>status;
   cout<<endl;
-  UGStudent u(modeOfStudy, fee, id, yearOfStudy, department, fname, lname, address, status);
-  ug.push_back(u);
+
+  if (modeOfStudy == "UG")
+  {
+    UGStudent u(modeOfStudy, fee, id, yearOfStudy, department, fname, lname, address, status);
+    ug.push_back(u);
+  }
+  else if (modeOfStudy == "MSC")
+  {
+    MScStudent m(modeOfStudy, fee, id, yearOfStudy, department, fname, lname, address, status);
+    msc.push_back(m);
+  }
+  else
+  {
+    PhdStudent p(modeOfStudy, fee, id, yearOfStudy, department, fname, lname, address, status);
+    phd.push_back(p);
+  }
+
+ cout<<"Student added Successfully..."<<endl;
+ cout<<endl;
 }
 
-void addMScStudent(vector<MScStudent> &msc)
+
+
+void removeStudent(int id, vector<UGStudent> &ug, vector<MScStudent> &msc, vector<PhdStudent> &phd)
 {
-  string modeOfStudy,department,fname,lname,address,status;
-  int id, fee, yearOfStudy;
-
-  cout<<"Enter id: "<<flush;
-  cin>>id;
-  cout<<endl;
-  cout<<"Enter mode Of Study: "<<flush;
-  cin>>modeOfStudy;
-  cout<<endl;
-  cout<<"Enter fee paid: "<<flush;
-  cin>>fee;
-  cout<<endl;
-  cout<<"Enter year Of Study: "<<flush;
-  cin>>yearOfStudy;
-  cout<<endl;
-  cout<<"Enter department: "<<flush;
-  cin>>department;
-  cout<<endl;
-  cout<<"Enter first name: "<<flush;
-  cin>>fname;
-  cout<<endl;
-  cout<<"Enter last name: "<<flush;
-  cin>>lname;
-  cout<<endl;
-  cout<<"Enter address: "<<flush;
-  cin>>address;
-  cout<<endl;
-  cout<<"Enter status: "<<flush;
-  cin>>status;
-  cout<<endl;
-  MScStudent m(modeOfStudy, fee, id, yearOfStudy, department, fname, lname, address, status);
-  msc.push_back(m);
-}
-
-void addPhdStudent(vector<PhdStudent> &phd)
-{
-  string modeOfStudy,department,fname,lname,address,status;
-  int id, fee, yearOfStudy;
-
-  cout<<"Enter id: "<<flush;
-  cin>>id;
-  cout<<endl;
-  cout<<"Enter mode Of Study: "<<flush;
-  cin>>modeOfStudy;
-  cout<<endl;
-  cout<<"Enter fee paid: "<<flush;
-  cin>>fee;
-  cout<<endl;
-  cout<<"Enter year Of Study: "<<flush;
-  cin>>yearOfStudy;
-  cout<<endl;
-  cout<<"Enter department: "<<flush;
-  cin>>department;
-  cout<<endl;
-  cout<<"Enter first name: "<<flush;
-  cin>>fname;
-  cout<<endl;
-  cout<<"Enter last name: "<<flush;
-  cin>>lname;
-  cout<<endl;
-  cout<<"Enter address: "<<flush;
-  cin>>address;
-  cout<<endl;
-  cout<<"Enter status: "<<flush;
-  cin>>status;
-  cout<<endl;
-  PhdStudent p(modeOfStudy, fee, id, yearOfStudy, department, fname, lname, address, status);
-  phd.push_back(p);
-}
-
-Student* searchById (int id, vector<UGStudent> &ug, vector<MScStudent> &msc, vector<PhdStudent> &phd)
-{
-  Student *stUG = new UGStudent;
-  Student *stMSc = new MScStudent;
-  Student *stPhd = new PhdStudent;
-
   for(int i=0; i<ug.size(); i++)
   {
     if(ug[i].getID() == id)
     {
-      stUG = &ug[i];
-      return stUG;
+      ug.erase(ug.begin() + i);
+      return;
     }
   }
 
@@ -136,8 +88,8 @@ Student* searchById (int id, vector<UGStudent> &ug, vector<MScStudent> &msc, vec
   {
     if(msc[i].getID() == id)
     {
-      stMSc = &msc[i]
-      return stMSc;
+      msc.erase(msc.begin() + i);
+      return;
     }
   }
 
@@ -145,27 +97,65 @@ Student* searchById (int id, vector<UGStudent> &ug, vector<MScStudent> &msc, vec
   {
     if(phd[i].getID() == id)
     {
-      stPhd = &phd[i];
-      return stPhd;
+      phd.erase(phd.begin() + i);
+      return;
     }
   }
 
-  return stUG;
+  cout<<"Student with id: "<<id<<" was removed Successfully..."<<endl;
+  cout<<endl;
+}
+
+
+Student* searchById (int id, vector<UGStudent> &ug, vector<MScStudent> &msc, vector<PhdStudent> &phd)
+{
+  Student *st;
+
+  for(int i=0; i<ug.size(); i++)
+  {
+    if(ug[i].getID() == id)
+    {
+      st= &ug[i];
+      return st;
+    }
+  }
+
+  for(int i=0; i<msc.size(); i++)
+  {
+    if(msc[i].getID() == id)
+    {
+      st = &msc[i];
+      return st;
+    }
+  }
+
+  for(int i=0; i<phd.size(); i++)
+  {
+    if(phd[i].getID() == id)
+    {
+      st = &phd[i];
+      return st;
+    }
+  }
+
+  cout<<"No Student with that id was found..."<<endl;
+  cout<<endl;
+  return st;
 
 }
 
+
+
 Student* searchByFirstName (string fname, vector<UGStudent> &ug, vector<MScStudent> &msc, vector<PhdStudent> &phd)
 {
-  Student *stUG = new UGStudent;
-  Student *stMSc = new MScStudent;
-  Student *stPhd = new PhdStudent;
+  Student *st;
 
   for(int i=0; i<ug.size(); i++)
   {
     if(ug[i].getFname() == fname)
     {
-      stUG = &ug[i];
-      return stUG;
+      st = &ug[i];
+      return st;
     }
   }
 
@@ -173,8 +163,8 @@ Student* searchByFirstName (string fname, vector<UGStudent> &ug, vector<MScStude
   {
     if(msc[i].getFname() == fname)
     {
-      stMSc = &msc[i]
-      return stMSc;
+      st = &msc[i];
+      return st;
     }
   }
 
@@ -182,26 +172,29 @@ Student* searchByFirstName (string fname, vector<UGStudent> &ug, vector<MScStude
   {
     if(phd[i].getFname() == fname)
     {
-      stPhd = &phd[i];
-      return stPhd;
+      st= &phd[i];
+      return st;
     }
   }
 
-  return stUG;
+  cout<<"No Student with that first name was found..."<<endl;
+  cout<<endl;
+  return st;
 }
+
+
 
 Student* searchByLastName (string lname, vector<UGStudent> &ug, vector<MScStudent> &msc, vector<PhdStudent> &phd)
 {
-  Student *stUG = new UGStudent;
-  Student *stMSc = new MScStudent;
-  Student *stPhd = new PhdStudent;
+
+  Student *st;
 
   for(int i=0; i<ug.size(); i++)
   {
     if(ug[i].getLname() == lname)
     {
-      stUG = &ug[i];
-      return stUG;
+      st = &ug[i];
+      return st;
     }
   }
 
@@ -209,8 +202,8 @@ Student* searchByLastName (string lname, vector<UGStudent> &ug, vector<MScStuden
   {
     if(msc[i].getLname() == lname)
     {
-      stMSc = &msc[i]
-      return stMSc;
+      st = &msc[i];
+      return st;
     }
   }
 
@@ -218,26 +211,27 @@ Student* searchByLastName (string lname, vector<UGStudent> &ug, vector<MScStuden
   {
     if(phd[i].getLname() == lname)
     {
-      stPhd = &phd[i];
-      return stPhd;
+      st= &phd[i];
+      return st;
     }
   }
 
-  return stUG;
+  cout<<"No Student with that last name was found"<<endl;
+  cout<<endl;
+  return st;
 }
+
+
 
 vector<Student*> searchByDepartment (string department, vector<UGStudent> &ug, vector<MScStudent> &msc, vector<PhdStudent> &phd)
 {
-  vector<Student*> stUG = new vector<UGStudent>;
-  vector<Student*> stMSc = new vector<MScStudent>;
-  vector<Student*> stPhd = new vector<PhdStudent>;
+  vector<Student*> st;
 
   for(int i=0; i<ug.size(); i++)
   {
     if(ug[i].getDepartment() == department)
     {
-      stUG.push_back(&ug[i]);
-      return stUG;
+      st.push_back(&ug[i]);
     }
   }
 
@@ -245,8 +239,7 @@ vector<Student*> searchByDepartment (string department, vector<UGStudent> &ug, v
   {
     if(msc[i].getDepartment() == department)
     {
-      stMSc.push_back(&msc[i]);
-      return stMSc;
+      st.push_back(&msc[i]);
     }
   }
 
@@ -254,26 +247,25 @@ vector<Student*> searchByDepartment (string department, vector<UGStudent> &ug, v
   {
     if(phd[i].getDepartment() == department)
     {
-      stPhd.push_back(&phd[i]);
-      return stPhd;
+      st.push_back(&phd[i]);
     }
   }
 
-  return stUG;
+  return st;
 }
+
+
 
 vector<Student*> searchByStatus (string tuitionStatus, vector<UGStudent> &ug, vector<MScStudent> &msc, vector<PhdStudent> &phd)
 {
-  vector<Student*> stUG = new vector<UGStudent>;
-  vector<Student*> stMSc = new vector<MScStudent>;
-  vector<Student*> stPhd = new vector<PhdStudent>;
+
+  vector<Student*> st;
 
   for(int i=0; i<ug.size(); i++)
   {
     if(ug[i].getTuitionStat() == tuitionStatus)
     {
-      stUG.push_back(&ug[i]);
-      return stUG;
+      st.push_back(&ug[i]);
     }
   }
 
@@ -281,8 +273,7 @@ vector<Student*> searchByStatus (string tuitionStatus, vector<UGStudent> &ug, ve
   {
     if(msc[i].getTuitionStat() == tuitionStatus)
     {
-      stMSc.push_back(&msc[i]);
-      return stMSc;
+      st.push_back(&msc[i]);
     }
   }
 
@@ -290,14 +281,131 @@ vector<Student*> searchByStatus (string tuitionStatus, vector<UGStudent> &ug, ve
   {
     if(phd[i].getTuitionStat() == tuitionStatus)
     {
-      stPhd.push_back(&phd[i]);
-      return stPhd;
+      st.push_back(&phd[i]);
     }
   }
 
-  return stUG;
+  return st;
+
 }
 
+void addModule(vector<Module> &module)
+{
+  string moduleCode, moduleName, moduleProfessor, moduleSummary;
+
+  cout<<"Enter moduleCode: "<<flush;
+  cin>>moduleCode;
+  cout<<"Enter Module Name: "<<flush;
+  cin.ignore();
+  getline(cin, moduleName);
+  cout<<endl;
+  cout<<"Enter Module Professor: "<<flush;
+  cin.ignore();
+  getline(cin, moduleProfessor);
+  cout<<endl;
+  cout<<"Enter Module Summary: "<<flush;
+  cin.ignore();
+  getline(cin, moduleSummary);
+  cout<<endl;
+
+  Module m(moduleCode, moduleName, moduleProfessor, moduleSummary);
+  module.push_back(m);
+}
+
+Module* searchModuleByCode(string moduleCode, vector<Module> &module)
+{
+  Module *m;
+
+  for(int i=0; i<module.size(); i++)
+  {
+    if(module[i].getModuleCode() == moduleCode)
+    {
+      m = &module[i];
+      break;
+    }
+  }
+
+  return m;
+}
+
+void enrollToModule(int id, string moduleCode, vector<UGStudent> &ug, vector<MScStudent> &msc, vector<PhdStudent> &phd, vector<Module> &module)
+{
+  Module *foundModule;
+  Student *foundStudent;
+
+  foundStudent = searchById(id, ug, msc, phd);
+  foundModule = searchModuleByCode(moduleCode, module);
+
+  foundStudent->enrol(foundModule->getModuleCode(), foundModule->getModuleName());
+  foundModule->addStudent(*foundStudent);
+}
+
+void readStudentFromFile(string filePath, vector<UGStudent> &ug, vector<MScStudent> &msc, vector<PhdStudent> &phd)
+{
+  string line;
+  string id, feePaid, yearOfStudy, modeOfStudy, department, fname, lname, address, status;
+  ifstream myStream(filePath);
+
+  if(myStream.is_open())
+  {
+    while(getline(myStream, line))
+    {
+      stringstream ss(line);
+      getline(ss, id, ',');
+      getline(ss, modeOfStudy, ',');
+      getline(ss, feePaid, ',');
+      getline(ss, yearOfStudy, ',');
+      getline(ss, department, ',');
+      getline(ss, fname, ',');
+      getline(ss, lname, ',');
+      getline(ss, address, ',');
+      getline(ss, status, '\n');
+
+      if (modeOfStudy == "UG")
+      {
+        UGStudent u(modeOfStudy, stoi(feePaid), stoi(id), stoi(yearOfStudy), department, fname, lname, address, status);
+        ug.push_back(u);
+      }
+      else if (modeOfStudy == "MSC")
+      {
+        MScStudent m(modeOfStudy, stoi(feePaid), stoi(id), stoi(yearOfStudy), department, fname, lname, address, status);
+        msc.push_back(m);
+      }
+      else
+      {
+        PhdStudent p(modeOfStudy, stoi(feePaid), stoi(id), stoi(yearOfStudy), department, fname, lname, address, status);
+        phd.push_back(p);
+      }
+
+    }
+  }
+
+  myStream.close();
+}
+
+void readModuleFromFile(string filePath, vector<Module> &module)
+{
+  string line;
+  string moduleCode,moduleName,moduleProfessor, moduleSummary;
+  ifstream myStream(filePath);
+
+  if(myStream.is_open())
+  {
+    while(getline(myStream, line))
+    {
+      stringstream ss(line);
+      getline(ss, moduleCode, ',');
+      getline(ss, moduleName, ',');
+      getline(ss, moduleProfessor, ',');
+      getline(ss, moduleSummary, ',');
+
+      Module m(moduleCode, moduleName, moduleProfessor, moduleSummary);
+      module.push_back(m);
+    }
+  }
+
+  myStream.close();
+}
 
 int main()
 {
@@ -306,16 +414,16 @@ int main()
   vector<PhdStudent> phd;
   vector<Module> module;
 
-  addMScStudent(msc);
-  addUGStudent(ug);
-  addUGStudent(ug);
-  addPhdStudent(phd);
+  readStudentFromFile("student.csv", ug, msc, phd);
+  readModuleFromFile("module.csv", module);
 
-  searchById()
+  enrollToModule(10,"ECS793P",ug,msc,phd,module);
+  enrollToModule(10,"ECS769P",ug,msc,phd,module);
+  Student* s = searchById(10,ug,msc,phd);
+  s->displayInfo();
 
-  for(int i=0; i<msc.size();i++) msc[i].displayInfo();
-  cout<<endl;
-  cout<<endl;
+
+
 
 
 
