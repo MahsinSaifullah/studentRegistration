@@ -75,6 +75,16 @@ int Student::getFeePaid()
   return feePaid;
 }
 
+vector<string> Student::getEnrolledModuleCode()
+{
+  return enrolledModuleCode;
+}
+
+vector<string> Student::getEnrolledModuleName()
+{
+  return enrolledModuleName;
+}
+
 void Student::enrol(string moduleCode, string moduleName)
 {
   enrolledModuleCode.push_back(moduleCode);

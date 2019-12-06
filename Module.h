@@ -16,6 +16,7 @@ public:
   string getModuleName();
   string getModuleProfessor();
   string getModuleSummary();
+  vector<Student> getStudentEnrolled();
   void addStudent(Student);
   void displayModule();
 

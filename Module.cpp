@@ -9,7 +9,7 @@ Module::Module()
 {
   moduleCode = "";
   moduleName = "";
-  moduleProfessor = ""; 
+  moduleProfessor = "";
   moduleSummary = "";
 }
 Module::Module(string moduleCode, string moduleName, string moduleProfessor, string moduleSummary)
@@ -38,6 +38,11 @@ string Module::getModuleProfessor()
 string Module::getModuleSummary()
 {
   return moduleSummary;
+}
+
+vector<Student> Module::getStudentEnrolled()
+{
+  return studentsEnrolled;
 }
 
 void Module::addStudent(Student s)

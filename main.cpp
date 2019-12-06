@@ -8,6 +8,7 @@
 #include<sstream>
 #include<string>
 #include<vector>
+#include<algorithm>
 
 using namespace std;
 
@@ -15,6 +16,11 @@ using namespace std;
 void clearConsole()
 {
   cout << "\x1B[2J\x1B[H";
+}
+
+void toUpperCase(string &mystring)
+{
+  transform(mystring.begin(), mystring.end(), mystring.begin(), ::toupper);
 }
 
 void addStudent(vector<UGStudent> &ug, vector<MScStudent> &msc, vector<PhdStudent> &phd)
@@ -27,6 +33,7 @@ void addStudent(vector<UGStudent> &ug, vector<MScStudent> &msc, vector<PhdStuden
   cout<<endl;
   cout<<"Enter mode Of Study: "<<flush;
   cin>>modeOfStudy;
+  toUpperCase(modeOfStudy);
   cout<<endl;
   cout<<"Enter fee paid: "<<flush;
   cin>>fee;
@@ -36,12 +43,15 @@ void addStudent(vector<UGStudent> &ug, vector<MScStudent> &msc, vector<PhdStuden
   cout<<endl;
   cout<<"Enter department: "<<flush;
   cin>>department;
+  toUpperCase(department);
   cout<<endl;
   cout<<"Enter first name: "<<flush;
   cin>>fname;
+  toUpperCase(fname);
   cout<<endl;
   cout<<"Enter last name: "<<flush;
   cin>>lname;
+  toUpperCase(lname);
   cout<<endl;
   cout<<"Enter address: "<<flush;
   cin.ignore();
@@ -49,6 +59,7 @@ void addStudent(vector<UGStudent> &ug, vector<MScStudent> &msc, vector<PhdStuden
   cout<<endl;
   cout<<"Enter status: "<<flush;
   cin>>status;
+  toUpperCase(status);
   cout<<endl;
 
   if (modeOfStudy == "UG")
@@ -407,6 +418,114 @@ void readModuleFromFile(string filePath, vector<Module> &module)
   myStream.close();
 }
 
+void readEnrollmentInfoFromFile(string filePath, vector<UGStudent> &ug, vector<MScStudent> &msc, vector<PhdStudent> &phd, vector<Module> &module)
+{
+  string line;
+  string moduleCode, id;
+  vector<string> studentID;
+  ifstream myStream(filePath);
+
+  if(myStream.is_open())
+  {
+    while(getline(myStream, line))
+    {
+      stringstream ss(line);
+      getline(ss, moduleCode, ',');
+      for(int i=0; i<20; i++)
+      {
+        getline(ss, id, ',');
+        studentID.push_back(id);
+      }
+
+      for(int i=0; i<studentID.size(); i++)
+      {
+        if(stoi(studentID[i]) != 0)
+        {
+          enrollToModule(stoi(studentID[i]),moduleCode,ug,msc,phd,module);
+        }
+      }
+
+    }
+  }
+
+  myStream.close();
+}
+
+
+void saveData(vector<UGStudent> &ug, vector<MScStudent> &msc, vector<PhdStudent> &phd, vector<Module> &module)
+{
+  string studentFile = "student.csv";
+  string moduleFile = "module.csv";
+  string enrollmentFile = "enrollment.csv";
+
+  ofstream studentStream(studentFile);
+  ofstream moduleStream(moduleFile);
+  ofstream enrollmentStream(enrollmentFile);
+
+  if(studentStream.is_open())
+  {
+    for(int i=0; i<ug.size(); i++)
+    {
+      studentStream<<ug[i].getID()<<","<<ug[i].getModeOfStudy()<<","
+      <<ug[i].getFeePaid()<<","<<ug[i].getYearOfStudy()<<","<<ug[i].getDepartment()<<","
+      <<ug[i].getFname()<<","<<ug[i].getLname()<<","<<ug[i].getAddress()<<","<<ug[i].getTuitionStat()<<endl;
+    }
+
+    for(int i=0; i<msc.size(); i++)
+    {
+      studentStream<<msc[i].getID()<<","<<msc[i].getModeOfStudy()<<","
+      <<msc[i].getFeePaid()<<","<<msc[i].getYearOfStudy()<<","<<msc[i].getDepartment()<<","
+      <<msc[i].getFname()<<","<<msc[i].getLname()<<","<<msc[i].getAddress()<<","<<msc[i].getTuitionStat()<<endl;
+    }
+
+    for(int i=0; i<phd.size(); i++)
+    {
+      studentStream<<phd[i].getID()<<","<<phd[i].getModeOfStudy()<<","
+      <<phd[i].getFeePaid()<<","<<phd[i].getYearOfStudy()<<","<<phd[i].getDepartment()<<","
+      <<phd[i].getFname()<<","<<phd[i].getLname()<<","<<phd[i].getAddress()<<","<<phd[i].getTuitionStat()<<endl;
+    }
+
+  }
+
+  if(moduleStream.is_open())
+  {
+    for(int i=0; i<module.size(); i++)
+    {
+      moduleStream<<module[i].getModuleCode()<<","<<module[i].getModuleName()<<","
+      <<module[i].getModuleProfessor()<<","<<module[i].getModuleSummary()<<endl;
+    }
+
+  }
+
+  if(enrollmentStream.is_open())
+  {
+    int zero = 0;
+
+    for(int i=0; i<module.size(); i++)
+    {
+      vector<Student> st = module[i].getStudentEnrolled();
+      enrollmentStream<<module[i].getModuleCode()<<",";
+
+      for(int j=0; j<20; j++)
+      {
+        if(j<=st.size()) enrollmentStream<<st[i].getID()<<",";
+        else
+        {
+          if (j!=20) enrollmentStream<<zero<<",";
+          else enrollmentStream<<zero<<endl;
+        }
+      }
+
+    }
+
+  }
+
+  studentStream.close();
+  moduleStream.close();
+  enrollmentStream.close();
+
+}
+
 int main()
 {
   vector<UGStudent> ug;
@@ -416,9 +535,9 @@ int main()
 
   readStudentFromFile("student.csv", ug, msc, phd);
   readModuleFromFile("module.csv", module);
+  readEnrollmentInfoFromFile("enrollment.csv", ug, msc, phd, module);
 
-  enrollToModule(10,"ECS793P",ug,msc,phd,module);
-  enrollToModule(10,"ECS769P",ug,msc,phd,module);
+
   Student* s = searchById(10,ug,msc,phd);
   s->displayInfo();
 

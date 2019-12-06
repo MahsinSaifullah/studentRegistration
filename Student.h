@@ -20,6 +20,8 @@ public:
   string getAddress();
   string getTuitionStat();
   int getFeePaid();
+  vector<string> getEnrolledModuleCode();
+  vector<string> getEnrolledModuleName();
   void enrol(string, string);
   virtual void displayInfo();
 
