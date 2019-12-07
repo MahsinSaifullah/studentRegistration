@@ -15,7 +15,7 @@ using namespace std;
 
 void clearConsole()
 {
-  cout << "\x1B[2J\x1B[H";
+  cout << "\033[2J\033[1;1H";;
 }
 
 void toUpperCase(string &mystring)
@@ -437,6 +437,7 @@ void readEnrollmentInfoFromFile(string filePath, vector<UGStudent> &ug, vector<M
         studentID.push_back(id);
       }
 
+
       for(int i=0; i<studentID.size(); i++)
       {
         if(stoi(studentID[i]) != 0)
@@ -444,6 +445,8 @@ void readEnrollmentInfoFromFile(string filePath, vector<UGStudent> &ug, vector<M
           enrollToModule(stoi(studentID[i]),moduleCode,ug,msc,phd,module);
         }
       }
+
+      studentID.clear();
 
     }
   }
@@ -536,10 +539,26 @@ int main()
   readStudentFromFile("student.csv", ug, msc, phd);
   readModuleFromFile("module.csv", module);
   readEnrollmentInfoFromFile("enrollment.csv", ug, msc, phd, module);
+  clearConsole();
+
+  cout<<"***********************************************************************"<<endl;
+  cout<<"*                 <-----STUDENT REGISTRATION----->                    *"<<endl;
+  cout<<"*                      ----------------------                         *"<<endl;
+  cout<<"***********************************************************************"<<endl;
+  cout<<endl;
+  cout<<"--------------Choose an option from the following menu------------------"<<endl;
+  cout<<endl;
+  cout<<"Press 1 : Add a Student"<<endl;
+  cout<<"Press 2 : Enrol a Student to Modules"<<endl;
+  cout<<"Press 3 : Remove a Student"<<endl;
+  cout<<"Press 4 : Search a Student by Id"<<endl;
+  cout<<"Press 5 : Search a Student by First Name"<<endl;
+  cout<<"Press 6 : Search a Student by Last Name"<<endl;
+  cout<<"Press 7 : Search Students by Department"<<endl;
+  cout<<"Press 0 : Save and exit"<<endl;
+  saveData(ug, msc, phd, module);
 
 
-  Student* s = searchById(10,ug,msc,phd);
-  s->displayInfo();
 
 
 

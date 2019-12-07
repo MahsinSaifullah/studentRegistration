@@ -1,15 +1,15 @@
-1,MSC,18000,1,CS,Mahsin,Saifullah,8 Boston loft SS26FR,INTERNATIONAL
-2,MSC,15000,1,CS,Pravin,Durai,Bethney Green E1 8LE,INTERNATIONAL
-3,MSC,10000,1,MATH,William,Gale,8 Bishop Gate E2 7LE,HOME
 4,UG,7000,1,CS,Ramzi,Mathews,207 Mission Building E14 7LE,EU
-5,MSC,17000,1,EE,Anne,Hsu,10 Santa Maria Court E1 8WR,INTERNATIONAL
 6,UG,14000,2,CS,Amanda,Bynes,210 Mission Building E14 7LE,HOME
-7,PHD,30000,3,MATH,Emma,Watson,73 Queen Street E8 9JK,HOME
-8,PHD,20000,1,MATH,Hasan,Minhaj,29 Queen Street E8 9JK,INTERNATIONAL
-9,PHD,45000,2,CS,Usayd,Naveed,10 Boston loft SS26FR,INTERNATIONAL
-10,MSC,8000,1,CS,Oliver,Beckman,11 Bishop Gate Ee2 7LE,EU
 11,UG,20000,3,CS,Andras,Hoffman,11 Santa Maria Court E1 8WR,EU
 12,UG,18000,2,CS,Malik,Hamedani,19 Duckett Street E1 8TY,HOME
 13,UG,18000,2,EE,Salim,Hamedani,19 Duckett Street E1 8TY,HOME
+1,MSC,18000,1,CS,Mahsin,Saifullah,8 Boston loft SS26FR,INTERNATIONAL
+2,MSC,15000,1,CS,Pravin,Durai,Bethney Green E1 8LE,INTERNATIONAL
+3,MSC,10000,1,MATH,William,Gale,8 Bishop Gate E2 7LE,HOME
+5,MSC,17000,1,EE,Anne,Hsu,10 Santa Maria Court E1 8WR,INTERNATIONAL
+10,MSC,8000,1,CS,Oliver,Beckman,11 Bishop Gate Ee2 7LE,EU
 14,MSC,8000,1,CS,Haylee,Williams,12 Santa Maria Court E1 8WR,HOME
 15,MSC,18000,1,CS,Kajal,Agarwal,76 William Field E14 8TE,INTERNATIONAL
+7,PHD,30000,3,MATH,Emma,Watson,73 Queen Street E8 9JK,HOME
+8,PHD,20000,1,MATH,Hasan,Minhaj,29 Queen Street E8 9JK,INTERNATIONAL
+9,PHD,45000,2,CS,Usayd,Naveed,10 Boston loft SS26FR,INTERNATIONAL
