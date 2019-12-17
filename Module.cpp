@@ -40,14 +40,29 @@ string Module::getModuleSummary()
   return moduleSummary;
 }
 
-vector<Student> Module::getStudentEnrolled()
+vector<int> Module::getStudentID()
 {
-  return studentsEnrolled;
+  return studentID;
+}
+vector<string> Module::getStudentFName()
+{
+  return studentFName;
+}
+vector<string> Module::getStudentLName()
+{
+  return studentLName;
+}
+vector<string> Module::getStudentDepartment()
+{
+  return studentDepartment;
 }
 
 void Module::addStudent(Student s)
 {
-  studentsEnrolled.push_back(s);
+  studentID.push_back(s.getID());
+  studentFName.push_back(s.getFname());
+  studentLName.push_back(s.getLname());
+  studentDepartment.push_back(s.getDepartment());
 }
 
 void Module::displayModule()
@@ -59,9 +74,9 @@ void Module::displayModule()
   cout<<endl;
   cout<<"Students enrolled: "<<endl;
   cout<<endl;
-  cout<<"ID\t\t\t\tFirst Name\t\t\tLast Name"<<endl;
-  for(int i=0; i<studentsEnrolled.size(); i++)
+  cout<<"ID\t\t\t\tFirst Name\t\tLast Name\t\t\tDepartment"<<endl;
+  for(int i=0; i<studentID.size(); i++)
   {
-    cout<<studentsEnrolled[i].getID()<<"\t\t\t\t"<<studentsEnrolled[i].getFname()<<"\t\t\t"<<studentsEnrolled[i].getLname()<<endl;
+    cout<<studentID[i]<<"\t\t\t\t"<<studentFName[i]<<"\t\t\t"<<studentLName[i]<<"\t\t\t\t"<<studentDepartment[i]<<endl;
   }
 }

@@ -16,7 +16,10 @@ public:
   string getModuleName();
   string getModuleProfessor();
   string getModuleSummary();
-  vector<Student> getStudentEnrolled();
+  vector<int> getStudentID();
+  vector<string> getStudentFName();
+  vector<string> getStudentLName();
+  vector<string> getStudentDepartment();
   void addStudent(Student);
   void displayModule();
 
@@ -25,7 +28,10 @@ private:
   string moduleName;
   string moduleProfessor;
   string moduleSummary;
-  vector<Student> studentsEnrolled;
+  vector<int> studentID;
+  vector<string> studentFName;
+  vector<string> studentLName;
+  vector<string> studentDepartment;
 };
 
 
